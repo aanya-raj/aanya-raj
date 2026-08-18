@@ -14,6 +14,9 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Generate pink/purple contribution snake
         uses: Platane/snk@v3
         id: snake-gif
@@ -23,9 +26,9 @@ jobs:
             assets/snake.svg?color_snake=#ff2d95&color_dots=#0d0a1a,#2a1a33,#5a2a55,#a93d8f,#ff2d95&color_animate=#ff8fc7
 
       - name: Push snake.svg to output branch
-        uses: crazy-max/ghaction-github-pages@v4
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          target_branch: output
-          build_dir: assets
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: output
+          publish_dir: assets
+          force_orphan: true
